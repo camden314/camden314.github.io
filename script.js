@@ -85,7 +85,7 @@ function playNote(frequency, duration) {
 	// create Oscillator node
 	var oscillator = audioCtx.createOscillator();
 	
-	oscillator.type = 'triangle';
+	oscillator.type = document.querySelector('input[name="t"]:checked').value;;
 	oscillator.frequency.value = frequency; // value in hertz
 	oscillator.connect(audioCtx.destination);
 	oscillator.start();
