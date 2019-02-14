@@ -66,15 +66,17 @@ notez = [
 ];
 notez.reverse(); 
 tempo = 50;
-
+dostop = 0;
 // create web audio api context
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 notes = notez.slice();
 function playMelody(){
+	dostop = 1;
 	if (notes.length > 0){
 		note = notes.pop();
 		//console.log(frq(note[0]));
 		console.log(note[0]);
+		dostop = 0;
 		playNote(frq(note[0]),150*note[1]);
 	} else {
 		notes = notez.slice();
@@ -83,6 +85,10 @@ function playMelody(){
 
 function playNote(frequency, duration) {
 	// create Oscillator node
+	if(dostop == 1) {
+		dostop = 0;
+		return;
+	}
 	var oscillator = audioCtx.createOscillator();
 	
 	oscillator.type = document.querySelector('input[name="t"]:checked').value;
